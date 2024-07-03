@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="action_mark_to_hide">
+            <field name="name">Hide Opportunity</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="binding_model_id" ref="model_crm_lead" />
+            <field name="state">code</field>
+            <field name="code">
+                    records.action_hide()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_mark_to_unhide">
+            <field name="name">Unhide Opportunity</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="binding_model_id" ref="model_crm_lead" />
+            <field name="state">code</field>
+            <field name="code">
+                    records.action_unhide()
+            </field>
+        </record>
+
+        <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                    <br/>
+                    <label for="hide"/>
+                    <field name="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_kanban_view_leads_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
+                    <field name="hide" invisible="1"/>
+                    <a name="action_hide" type="object" class="btn btn-info btn-sm"
+                       role="button" title="Hide this Opportunity"
+                       attrs="{'invisible':[('hide', '=', True)]}">Hide</a>
+                    <a name="action_unhide" type="object" class="btn btn-info btn-sm"
+                       role="button" title="Unhide this Opportunity"
+                       attrs="{'invisible':[('hide', '=', False)]}">Unhide</a>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_case_opportunities_filter_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.search.opportunity.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='assigned_to_me']" position="before">
+                    <filter name="hide" string="Hide Old Opportunity" domain="[('hide', '=', False)]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="crm.crm_lead_action_pipeline">
+            <field name="name">Pipeline</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('type','=','opportunity')]</field>
+            <field name="context">{
+                    'default_type': 'opportunity',
+                    'search_default_hide': 1,
+                    'search_default_assigned_to_me': 1
+            }</field>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        </record>
+
+    </data>
+</odoo>

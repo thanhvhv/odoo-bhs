@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    user: root
+    env_file: .env
+    restart: always             # run as a service
+    volumes:
+        - db:/var/lib/postgresql/data
+  odoo17:
+    image: odoo:${VERSION_ODOO:-17}
+    user: root
+    depends_on:
+      - db
+    ports:
+      - ${ODOO_PORT:-8067}:8069
+      # - "8664:8072" # live chat
+    tty: true
+    command: --
+    env_file: .env
+    volumes:
+      #- /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
+      - ./entrypoint_${ODOO_APP:-default}.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
+      - ./addons/${ODOO_APP:-default}:/mnt/extra-addons
+      - ./etc:/etc/odoo
+      # - /root/internal_services/syncthing_data_dir/backup/others/odoo_17:/odoo/backups
+    restart: always             # run as a service
+
+volumes:
+  db:

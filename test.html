@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap 5.3 Layout</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Health Check</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/health/',
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'healthy') {
+                        console.log('The website is healthy.');
+                    } else {
+                        console.log('The website is not healthy.');
+                    }
+                },
+                error: function() {
+                    console.log('Failed to check the health of the website.');
+                }
+            });
+        });
+    </script>
 </head>
-
-
+<body>
+    <h1>Health Check Example</h1>
+</body>
+</html>

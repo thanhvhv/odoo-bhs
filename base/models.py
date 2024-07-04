@@ -9,16 +9,32 @@ class Odoo(models.Model):
         return self.name
     
 
+
+class Demo(models.Model):
+    name = models.CharField(max_length=100)
+    version = models.ForeignKey(Odoo, on_delete=models.CASCADE)
+    port = models.IntegerField()
+    date = models.DateField(auto_now_add=True)
+    STATE_CHOICES = {
+    "Starting": "Starting",
+    "Running": "Running",
+    "Stopped": "Stopped",
+    "Destroyed": "Destroyed",
+    }
+    state = models.CharField(max_length=15, choices=STATE_CHOICES, default="Starting")
+
+
+    def __str__(self):
+        return self.name
+    
 class Module(models.Model):
     odoo = models.ForeignKey(Odoo, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
+    demo = models.ManyToManyField(Demo)
 
-class Demo(models.Model):
-    odoo = models.ForeignKey(Odoo, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    
     def __str__(self):
         return self.name
+    
+class Port(models.Model):
+    port = models.IntegerField()
+    url = models.CharField(max_length=150, blank=True)

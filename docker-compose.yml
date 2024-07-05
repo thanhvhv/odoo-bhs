@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.38.6
+    ports:
+    - 8080:8080
+    privileged: true
+    devices:
+      - /dev/kmsg
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:ro
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - /etc/machine-id:/etc/machine-id:ro
+    - /var/lib/dbus/machine-id:/var/lib/dbus/machine-id:ro

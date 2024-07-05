@@ -1,6 +1,6 @@
 #!/bin/bash
-WORK_SPACE='/home/thanhvhv/project/myodoo'
-PATH_ODOO_CONTROLLER='/home/thanhvhv/project/myodoo/odoo_controller'
+WORK_SPACE=/home/thanhvhv/project/odoo-bhs
+PATH_ODOO_CONTROLLER=/home/thanhvhv/project/odoo-bhs/odoo_controller
 
 # Define the name of app
 APP=$1

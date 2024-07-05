@@ -6,6 +6,7 @@ from django.http import JsonResponse
 import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime, timedelta
 
 def index(request):
     odoos = Odoo.objects.all()
@@ -58,8 +59,12 @@ def index(request):
             command_destroy = command_destroy + demo_destroy.name
             subprocess.run([command_destroy], shell=True)
             demo_destroy.state = "Destroyed"
+            print(datetime.now())
+            print(demo_destroy.datetime)
+            demo_destroy.duration = datetime.now() - demo_destroy.datetime.replace(tzinfo=None)
             demo_destroy.save()
-
+    for demo in demos:
+        demo.duration = str(demo.duration).split('.')[0]
     demos_available = Demo.objects.exclude(state='Destroyed')
     ports_avaiable = []
     for port in ports:

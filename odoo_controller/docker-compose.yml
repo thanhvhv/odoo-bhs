@@ -25,6 +25,11 @@ services:
       - ./addons/${ODOO_APP:-default}:/mnt/extra-addons
       - ./etc:/etc/odoo
       # - /root/internal_services/syncthing_data_dir/backup/others/odoo_17:/odoo/backups
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+
     restart: always             # run as a service
 
 volumes:

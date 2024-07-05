@@ -1,5 +1,5 @@
 #!/bin/bash
-PATH_ODOO_CONTROLLER=/home/thanhvhv/project/myodoo/odoo_controller
+PATH_ODOO_CONTROLLER=/home/thanhvhv/project/odoo-bhs/odoo_controller
 ENTRYPOINT_SAMPLE="entrypoint.sh"
 APP=$1
 ADDONS=addons/$APP

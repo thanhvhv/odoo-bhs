@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two-Step Selection</title>
+    <title>Odoo Deploy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -77,6 +77,14 @@
                                 </div>
                                 {% endif %}
                                 {% endfor %}
+                                <label class="form-label">Restore data: </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="restore-data" type="checkbox" value="1" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                      Restore sample data
+                                    </label>
+                                </div>
+                                  
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -125,7 +133,7 @@
                                         {{item}}<br/>
                                         {% endfor %}
                                     </td>
-                                    <td>{{demo.date}}</td>
+                                    <td>{{demo.datetime}}</td>
                                     <td>
                                         <div id="checking-{{port.port}}" class="spinner-border text-primary" role="status" style="display: none;">
                                         <span class="visually-hidden">Loading...</span>
@@ -192,7 +200,7 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h{{port.id}} class="h2">List of demos</h>
+                        <h{{port.id}} class="h2">Demo History</h>
                     </div>
     
                     <!-- Table -->
@@ -205,6 +213,7 @@
                                     <th>Version</th>
                                     <th>Port</th>
                                     <th>Date</th>
+                                    <th>Duration</th>
                                     <th>Modules</th>
                                     <th>State</th>
                                 </tr>
@@ -216,7 +225,8 @@
                                     <td>{{demo}}</td>
                                     <td>{{demo.version}}</td>
                                     <td>{{demo.port}}</td>
-                                    <td>{{demo.date}}</td>
+                                    <td>{{demo.datetime}}</td>
+                                    <td>{{demo.duration}}</td>
                                     <td>
                                         {% for item in demo.module_set.all %}
                                         {{item}}<br/>

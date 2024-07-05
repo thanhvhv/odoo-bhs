@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timedelta
 
 # Create your models here.
 class Odoo(models.Model):
@@ -15,6 +16,8 @@ class Demo(models.Model):
     version = models.ForeignKey(Odoo, on_delete=models.CASCADE)
     port = models.IntegerField()
     date = models.DateField(auto_now_add=True)
+    datetime = models.DateTimeField(auto_now_add=True)
+    duration = models.DurationField(default=timedelta(hours=1))
     STATE_CHOICES = {
     "Starting": "Starting",
     "Running": "Running",

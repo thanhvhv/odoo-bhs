@@ -7,6 +7,7 @@ import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
+import time
 
 def index(request):
     odoos = Odoo.objects.all()
@@ -33,7 +34,15 @@ def index(request):
                     command = command + ' ' + module.name
                     module.demo.add(demo)
             subprocess.run([command], shell=True)
-
+            cp_backup_command = 'docker cp ./odoo_controller/sample_db.sql ' + demo.name + '_db_1:/'
+            subprocess.run([cp_backup_command], shell=True)
+        if request.POST.get('restore') is not None:
+            restore_command = 'docker exec -i ' + request.POST.get('restore') + '_db_1 ' + 'psql -U odoo -d mydb -f sample_db.sql'
+            subprocess.run([restore_command], shell=True)
+            demo = Demo.objects.get(id=request.POST.get('demo-id-restore'))
+            demo.restore = True
+            demo.save()
+   
         if request.POST.get('start-demo') is not None:
             id_start = request.POST.get('start-demo')
             demo_start = Demo.objects.get(id=id_start)

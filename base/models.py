@@ -14,6 +14,7 @@ class Odoo(models.Model):
 class Demo(models.Model):
     name = models.CharField(max_length=100)
     version = models.ForeignKey(Odoo, on_delete=models.CASCADE)
+    restore = models.BooleanField(default=False)
     port = models.IntegerField()
     date = models.DateField(auto_now_add=True)
     datetime = models.DateTimeField(auto_now_add=True)

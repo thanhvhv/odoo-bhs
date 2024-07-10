@@ -7,7 +7,11 @@ services:
     restart: always             # run as a service
     volumes:
         - db:/var/lib/postgresql/data
-  odoo17:
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+  odoo:
     image: odoo:${VERSION_ODOO:-17}
     user: root
     depends_on:

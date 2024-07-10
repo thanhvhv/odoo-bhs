@@ -77,14 +77,6 @@
                                 </div>
                                 {% endif %}
                                 {% endfor %}
-                                <label class="form-label">Restore data: </label>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="restore-data" type="checkbox" value="1" id="defaultCheck1">
-                                    <label class="form-check-label" for="defaultCheck1">
-                                      Restore sample data
-                                    </label>
-                                </div>
-                                  
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -116,6 +108,7 @@
                                     <th>Modules</th>
                                     <th>Start date</th>
                                     <th>State</th>
+                                    <th>Restore</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -158,6 +151,21 @@
                                         {% endif %}
                                     </td>
                                     <td>
+                                        <div id="restore-{{port.port}}" {% if demo.state != 'Running' %} style="display: none;" {% endif %}>
+                                            {% if demo.restore == False %}
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" id="fname" name="restore" value="{{demo.name}}">
+                                            <input type="hidden" id="fname" name="demo-id-restore" value="{{demo.id}}">
+                                            <button type="button submit" class="btn btn-info">Restore sample data</button>
+
+                                        </form> 
+                                        {% else %}
+                                        <button type="button" class="btn btn-info" disabled>Restore Success</button>
+                                        {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
                                         <form id="start-demo-form-{{port.port}}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="start-demo" value="{{demo.id}}">
@@ -184,6 +192,7 @@
                                 <tr>
                                     <td>{{port.id}}</td>
                                     <td>{{port.port}}</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -258,6 +267,7 @@
                             document.getElementById("checking-"+data.port).style.display = 'none';
                             document.getElementById("running-state-"+data.port).style.display = 'block';
                             document.getElementById("stop-demo-button-"+data.port).style.display = 'block';
+                            document.getElementById("restore-"+data.port).style.display = 'block';
                         } 
                         else if (data.status === 'None') {
                             clearInterval(myInterval);

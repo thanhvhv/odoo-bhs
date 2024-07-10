@@ -12,7 +12,7 @@ import time
 def index(request):
     odoos = Odoo.objects.all()
     modules = Module.objects.all()
-    demos = Demo.objects.all()
+    demos = Demo.objects.all().order_by('-datetime')
     ports = Port.objects.all()
     demo = Demo()
     command = './odoo_controller/deploy.sh'

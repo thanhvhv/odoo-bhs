@@ -34,7 +34,7 @@ def index(request):
                     command = command + ' ' + module.name
                     module.demo.add(demo)
             subprocess.run([command], shell=True)
-            cp_backup_command = 'docker cp ./odoo_controller/sample_db.sql ' + demo.name + '_db_1:/'
+            cp_backup_command = 'docker cp ./odoo/odoo_controller/sample_db.sql ' + demo.name + '_db_1:/'
             subprocess.run([cp_backup_command], shell=True)
         if request.POST.get('restore') is not None:
             restore_command = 'docker exec -i ' + request.POST.get('restore') + '_db_1 ' + 'psql -U odoo -d mydb -f sample_db.sql'
@@ -46,7 +46,7 @@ def index(request):
         if request.POST.get('start-demo') is not None:
             id_start = request.POST.get('start-demo')
             demo_start = Demo.objects.get(id=id_start)
-            command_start = './odoo_controller/start.sh '
+            command_start = './odoo/odoo_controller/start.sh '
             command_start = command_start + demo_start.name
             subprocess.run([command_start], shell=True)
             demo_start.state = "Starting"
@@ -55,7 +55,7 @@ def index(request):
         if request.POST.get('stop-demo') is not None:
             id_stop = request.POST.get('stop-demo')
             demo_stop = Demo.objects.get(id=id_stop)
-            command_stop = './odoo_controller/stop.sh '
+            command_stop = './odoo/odoo_controller/stop.sh '
             command_stop = command_stop + demo_stop.name
             subprocess.run([command_stop], shell=True)
             demo_stop.state = "Stopped"
@@ -64,7 +64,7 @@ def index(request):
         if request.POST.get('destroy-demo') is not None:
             id_destroy = request.POST.get('destroy-demo')
             demo_destroy = Demo.objects.get(id=id_destroy)
-            command_destroy = './odoo_controller/destroy.sh '
+            command_destroy = './odoo/odoo_controller/destroy.sh '
             command_destroy = command_destroy + demo_destroy.name
             subprocess.run([command_destroy], shell=True)
             demo_destroy.state = "Destroyed"

@@ -25,9 +25,9 @@ services:
     volumes:
       #- /etc/timezone:/etc/timezone:ro
       #- /etc/localtime:/etc/localtime:ro
-      - /home/thanhvhv/project/myodoo/fake_dev/odoo-bhs/odoo/odoo_controller/entrypoint_${ODOO_APP:-default}.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
-      - /home/thanhvhv/project/myodoo/fake_dev/odoo-bhs/odoo/odoo_controller/addons/${ODOO_APP:-default}:/mnt/extra-addons
-      - /home/thanhvhv/project/myodoo/fake_dev/odoo-bhs/odoo/odoo_controller/etc:/etc/odoo
+      - /home/bhsoft/odoo-bhs/odoo/odoo_controller/entrypoint_${ODOO_APP:-default}.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
+      - /home/bhsoft/odoo-bhs/odoo/odoo_controller/addons/${ODOO_APP:-default}:/mnt/extra-addons
+      - /home/bhsoft/odoo-bhs/odoo/odoo_controller/etc:/etc/odoo
       # - /root/internal_services/syncthing_data_dir/backup/others/odoo_17:/odoo/backups
     deploy:
       resources:

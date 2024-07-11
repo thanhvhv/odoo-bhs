@@ -34,7 +34,7 @@ class Demo(models.Model):
 class Module(models.Model):
     odoo = models.ForeignKey(Odoo, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    demo = models.ManyToManyField(Demo)
+    demo = models.ManyToManyField(Demo, blank=True)
 
     def __str__(self):
         return self.name

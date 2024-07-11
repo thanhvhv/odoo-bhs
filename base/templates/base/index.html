@@ -51,18 +51,12 @@
 
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Port: </label>
+                                    {% for port in ports %}
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="port" id="inlineRadio1" value="8065">
-                                        <label class="form-check-label" for="inlineRadio1">8065</label>
+                                        <input class="form-check-input" type="radio" name="port" id="inlineRadio1" value="{{port.port}}">
+                                        <label class="form-check-label" for="inlineRadio1">{{port.port}}</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="port" id="inlineRadio2" value="8066">
-                                        <label class="form-check-label" for="inlineRadio2">8066</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="port" id="inlineRadio2" value="8067">
-                                        <label class="form-check-label" for="inlineRadio2">8067</label>
-                                    </div>
+                                    {% endfor %}
                                 </div>
 
                                 

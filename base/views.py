@@ -15,7 +15,7 @@ def index(request):
     demos = Demo.objects.all().order_by('-datetime')
     ports = Port.objects.all()
     demo = Demo()
-    command = './odoo_controller/deploy.sh'
+    command = './odoo/odoo_controller/deploy.sh'
     if request.method == 'POST':
         # create new demo
         if request.POST.get('version') is not None:
@@ -87,7 +87,7 @@ def index(request):
     starting = Demo.objects.filter(state='Starting').first()
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         if starting is not None:
-            target_url = 'http://127.0.0.1:' + str(starting.port)  # Replace with the website you want to check
+            target_url = 'http://192.168.3.28:' + str(starting.port)  # Replace with the website you want to check
             print(target_url)
             try:
                 response = requests.get(target_url)

@@ -1,6 +1,6 @@
 #!/bin/bash
-WORK_SPACE=/home/bhsoft/odoo-bhs
-PATH_ODOO_CONTROLLER=/home/bhsoft/odoo-bhs/odoo_controller
+WORK_SPACE=/django/odoo
+PATH_ODOO_CONTROLLER=/django/odoo/odoo_controller
 
 
 # Define the name of app

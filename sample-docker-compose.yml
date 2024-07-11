@@ -4,14 +4,20 @@ services:
   django_app:
     image: django_app
     build:
-      context: ./odoo-bhs
+      context: .
     container_name: "django"
     ports:
       - 8000:8000
     env_file:
-      - "./odoo-bhs/.env"
+      - .env
     depends_on:
       - db
+    volumes:
+      - ./odoo:/django/odoo
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/nc:/usr/bin/nc
+      - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
   db:
     image: mysql
     container_name: db
